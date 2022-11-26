@@ -76,8 +76,8 @@ class FiltrosController extends Controller
     private function GrupoEconomicos($req)
     {
         return GrupoEconomico::select($this->campos)
-        ->where('gec_ativo', $req->gruposEconomicosAtividade[0]) //implementação da atividade, apesar de estar recebendo 0 ou 1 do parametro, a query não funciona.
-        ->where($this->campos[0], "like", "%{$req->pesquisa}%")
+        ->where('gec_ativo', $req->gruposEconomicosAtividade[0])
+        ->where($this->campos[0], "like", "%{$req->pesquisa}%")->first()
         ->orWhere($this->campos[1], "like", "%{$req->pesquisa}%")
         ->paginate();
     }
@@ -85,7 +85,8 @@ class FiltrosController extends Controller
     private function bandeiras($req)
     {
         return Bandeira::select($this->campos)
-        ->where($this->campos[0], "like", "%{$req->pesquisa}%")
+        ->where('ban_ativo', $req->gruposEconomicosAtividade[0])
+        ->where($this->campos[0], "like", "%{$req->pesquisa}%")->first()
         ->orWhere($this->campos[1], "like", "%{$req->pesquisa}%")
         ->paginate();
     }
@@ -93,7 +94,8 @@ class FiltrosController extends Controller
     private function unidades($req) 
     {
         return Unidade::select($this->campos)
-        ->where($this->campos[0], "like", "%{$req->pesquisa}%")
+        ->where('uni_ativo', $req->gruposEconomicosAtividade[0])
+        ->where($this->campos[0], "like", "%{$req->pesquisa}%")->first()
         ->orWhere($this->campos[1], "like", "%{$req->pesquisa}%")
         ->paginate();
     }
@@ -101,7 +103,8 @@ class FiltrosController extends Controller
     private function funcionarios($req)
     {
         return Funcionario::select($this->campos)
-        ->join('unidade', 'funcionario.uni_id', '=', 'unidade.id')
+        ->where('fun_ativo', $req->gruposEconomicosAtividade[0])
+        ->join('unidade', 'funcionario.uni_id', '=', 'unidade.id')->first()
         ->where($this->campos[0], "like", "%{$req->pesquisa}%")
         ->orWhere($this->campos[1], "like", "%{$req->pesquisa}%")
         ->paginate();
