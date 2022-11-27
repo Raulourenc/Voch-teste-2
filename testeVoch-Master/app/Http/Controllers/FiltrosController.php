@@ -76,38 +76,79 @@ class FiltrosController extends Controller
     private function GrupoEconomicos($req)
     {
         return GrupoEconomico::select($this->campos)
-        ->where('gec_ativo', $req->gruposEconomicosAtividade[0])
-        ->where($this->campos[0], "like", "%{$req->pesquisa}%")->first()
-        ->orWhere($this->campos[1], "like", "%{$req->pesquisa}%")
-        ->paginate();
+        ->where(function($query) use ($req)
+        {
+            if(isset($req->gruposEconomicosAtividade)){
+
+                return $query
+                ->where('gec_ativo', $req->gruposEconomicosAtividade[0]);
+            }
+        })
+        ->where(function($query) use ( $req) 
+        {
+            return $query
+            ->where($this->campos[0], "like", "%{$req->pesquisa}%")
+            ->orWhere($this->campos[1], "like", "%{$req->pesquisa}%");
+        })->paginate();
     }
 
     private function bandeiras($req)
     {
         return Bandeira::select($this->campos)
-        ->where('ban_ativo', $req->gruposEconomicosAtividade[0])
-        ->where($this->campos[0], "like", "%{$req->pesquisa}%")->first()
-        ->orWhere($this->campos[1], "like", "%{$req->pesquisa}%")
-        ->paginate();
+        ->where(function($query) use ($req)
+        {
+            if(isset($req->gruposEconomicosAtividade)){
+
+                return $query
+                ->where('ban_ativo', $req->gruposEconomicosAtividade[0]);
+            }
+        })
+        ->where(function($query) use ( $req) 
+        {
+            return $query
+            ->where($this->campos[0], "like", "%{$req->pesquisa}%")
+            ->orWhere($this->campos[1], "like", "%{$req->pesquisa}%");
+        })->paginate();
     }
 
     private function unidades($req) 
     {
         return Unidade::select($this->campos)
-        ->where('uni_ativo', $req->gruposEconomicosAtividade[0])
-        ->where($this->campos[0], "like", "%{$req->pesquisa}%")->first()
-        ->orWhere($this->campos[1], "like", "%{$req->pesquisa}%")
-        ->paginate();
+        ->where(function($query) use ($req)
+        {
+            if(isset($req->gruposEconomicosAtividade)){
+
+                return $query
+                ->where('uni_ativo', $req->gruposEconomicosAtividade[0]);
+            }
+        })
+        ->where(function($query) use ( $req) 
+        {
+            return $query
+            ->where($this->campos[0], "like", "%{$req->pesquisa}%")
+            ->orWhere($this->campos[1], "like", "%{$req->pesquisa}%");
+        })->paginate();
     }
 
     private function funcionarios($req)
     {
         return Funcionario::select($this->campos)
-        ->where('fun_ativo', $req->gruposEconomicosAtividade[0])
-        ->join('unidade', 'funcionario.uni_id', '=', 'unidade.id')->first()
-        ->where($this->campos[0], "like", "%{$req->pesquisa}%")
-        ->orWhere($this->campos[1], "like", "%{$req->pesquisa}%")
-        ->paginate();
+        ->where(function($query) use ($req)
+        {
+            if(isset($req->gruposEconomicosAtividade)){
+
+                return $query
+                ->where('fun_ativo', $req->gruposEconomicosAtividade[0]);
+            }
+        })
+        ->join('unidade', 'funcionario.uni_id', '=', 'unidade.id')
+        ->where(function($query) use ( $req) 
+        {
+            return $query
+            
+            ->where($this->campos[0], "like", "%{$req->pesquisa}%")
+            ->orWhere($this->campos[1], "like", "%{$req->pesquisa}%");
+        })->paginate();
     }
 
     private function montarFiltros(array $campos)
