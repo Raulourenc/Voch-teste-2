@@ -20,3 +20,14 @@ filtro select2 - documentação: https://select2.org/
   -crie filtro de bandeira - pesquisando por (ban_documento e ban_nome) e (id e ban_nome)
   -crie filtro de unidade - pesquisando por (uni_documento e uni_nome_fantasia) e (uni_documento e uni_razao_social) e (id e uni_nome_fantasia)
   -crie filtro de funcionario - pesquisando por (fun_documento e fun_nome) e (fun_nome e uni_nome_fantasia) e (id e fun_nome)
+
+--------------------------------------------------------------------------
+
+# Retorno do teste
+Avalliação voch tech (Junior)
+
+-Migrates e seeders ultilizadas para popular o banco.
+-Analise dos filtros dinamicos já existentes feita e reparados.
+    -não foi possivel tornar funcional o placeholder dinamico de acordo com a seleção do filtro.
+-filtro atividades voltou a ser funcional.
+-Todas as implementações solicitadas foram feitas.
